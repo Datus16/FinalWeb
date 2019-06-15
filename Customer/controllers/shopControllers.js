@@ -1,9 +1,7 @@
-function formatPrice(price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
 
 const product = require('../models/product');
 const category = require('../models/category');
+const brand = require('../models/brand');
 
 exports.cart = (req, res) => {
     res.render('shop/cart', { title: 'Giỏ hàng'})
@@ -12,13 +10,22 @@ exports.cart = (req, res) => {
 exports.categoryAll = async (req, res) => {
     const dbProducts = await product.showAll();
     const dbCategories = await category.showAll();
-    res.render('shop/category', { title: 'Danh mục', dbProducts, dbCategories})
+    const dbBrands = await brand.showAll();
+    res.render('shop/category', { title: 'Danh mục', dbProducts, dbCategories, dbBrands})
 };
 
 exports.category = async (req, res) => {
     const dbProducts = await product.showCategory(req.params.categoryID);
     const dbCategories = await category.showAll();
-    res.render('shop/category', { title: 'Danh mục', dbProducts, dbCategories})
+    const dbBrands = await brand.showAll();
+    res.render('shop/category', { title: 'Danh mục', dbProducts, dbCategories, dbBrands})
+};
+
+exports.brand = async (req, res) => {
+    const dbProducts = await product.showBrand(req.params.brandID);
+    const dbCategories = await category.showAll();
+    const dbBrands = await brand.showAll();
+    res.render('shop/category', { title: 'Danh mục', dbProducts, dbCategories, dbBrands})
 };
 
 exports.checkout = (req, res) => {
@@ -31,5 +38,6 @@ exports.confirmation = (req, res) => {
 
 exports.singleProduct = async (req, res) => {
     const dbProduct = await product.detail(req.params.productID);
-    res.render('shop/single-product', { title: 'Thông tin chi tiết', dbProduct})
+    const dbCategory = await category.detail(dbProduct.category);
+    res.render('shop/single-product', { title: 'Thông tin chi tiết', dbProduct, dbCategory})
 };

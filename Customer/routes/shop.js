@@ -5,7 +5,9 @@ const shopControllers = require("../controllers/shopControllers");
 /* GET categories listing. */
 router.get('/', shopControllers.categoryAll);
 
-router.get('/:categoryID', shopControllers.category);
+router.get('/category/:categoryID', shopControllers.category);
+
+router.get('/brand/:brandID', shopControllers.brand);
 
 /* GET product detail. */
 router.get('/single-product/:productID', shopControllers.singleProduct);

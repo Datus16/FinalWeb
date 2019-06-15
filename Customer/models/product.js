@@ -17,8 +17,15 @@ const showCategory = async (id) => {
   return results;
 }
 
+const showBrand = async (id) => {
+  const results = await dbs.production.collection('products').find({brand: id}).toArray();
+  return results;
+}
+
 exports.detail = detail;
 
 exports.showAll = showAll;
 
 exports.showCategory = showCategory;
+
+exports.showBrand = showBrand;
