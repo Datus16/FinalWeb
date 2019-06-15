@@ -1,0 +1,41 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Theo dõi đơn hàng</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="index.html">Trang Chủ<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="category.html">Danh Mục Thời Trang</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Tracking Box Area =================-->
+    <section class="tracking_box_area section_gap">
+        <div class="container">
+            <div class="tracking_box_inner">
+                <p>Để theo dõi đơn hàng của bạn, vui lòng nhập Mã đơn hàng và Email của bạn sau đó ấn Theo dõi.
+                    Thông tin trên được cung cấp trên hóa đơn và email xác nhận của bạn.</p>
+                <form class="row tracking_form" action="#" method="post" novalidate="novalidate">
+                    <div class="col-md-12 form-group">
+                        <input type="text" class="form-control" id="order" name="order" placeholder="Mã đơn hàng" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Order ID'">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Địa chỉ Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Billing Email Address'">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <button type="submit" value="submit" class="primary-btn">Theo dõi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!--================End Tracking Box Area =================-->
+{% endblock %}
