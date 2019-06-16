@@ -4,6 +4,9 @@ const category = require('../models/category');
 const brand = require('../models/brand');
 const User = require('../models/User');
 
+const ObjectId = require('mongodb').ObjectId;
+const { dbs } = require('../dbs');
+
 exports.tablesBasic = (req, res) => {
     res.render('tables/tables-basic', { title : 'tableBasic'})
 };
@@ -22,9 +25,15 @@ exports.tablesAccount = (req, res) => {
     });
 };
 
+// exports.tablesAccount = async (req, res) => {
+//     const dbAccounts = await account.list();
+//     res.render('tables/tables-account', { title : 'tableCustomer', dbAccounts})
+// };
+
 exports.tablesProduct = async (req, res) => {
     const dbProducts = await product.list();
-    res.render('tables/tables-product', { title : 'tableProduct', dbProducts})
+    const dbCategories = await category.list();
+    res.render('tables/tables-product', { title : 'tableProduct', dbProducts, dbCategories})
 };
 
 exports.tablesCustomer = async (req, res) => {
@@ -42,16 +51,32 @@ exports.tableBrand = async (req, res) => {
     res.render('tables/tables-brand', { title : 'tableBrand', dbBrands})
 };
 
-exports.removeItem = async (id) => {
-    await product.remove(id);
-    res.redirect('./');
+exports.removeAccount = async (req, res) => {
+    User.findByIdAndRemove(req.params.accountID, function(err, users) {
+        res.redirect('/tables/tables-account');
+    });
 };
 
-exports.add = (req, res, next) => {
-    res.render('tables/add', { category: 'Sản phẩm', categoryLink: '/tables', title: 'Thêm sản phẩm' });
+exports.removeProduct = async (req, res) => {
+    await dbs.production.collection('products').deleteOne({_id: ObjectId(req.params.productID)});
+    res.redirect('/tables/tables-product')
 };
 
-exports.addPost = async (req, res, next) => {
-    await product.add(req.body);
-    res.redirect('./');
+exports.editProduct = async (req, res) => {
+    const dbProduct = await product.detail(req.params.productID);
+    const dbCategories = await category.list();
+    const dbBrands = await brand.list();
+    res.render('tables/edit', { title: 'Chỉnh sửa thông tin', dbProduct, dbCategories, dbBrands });
+};
+
+exports.editConfirmation = async (req, res) => {
+    const { name, category, brand, image, price, salePrice, availability } = req.body;
+    await product.editOne(req.params.productID, name, category, brand, image, price, salePrice, availability);
+    res.redirect('/tables/tables-product');
+};
+
+exports.addProduct = async (req, res) => {
+    const dbCategories = await category.list();
+    const dbBrands = await brand.list();
+    res.render('tables/add', { title: 'Thêm sản phẩm', dbCategories, dbBrands});
 };

@@ -10,15 +10,22 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 router.get('/tables-account', ensureAuthenticated, tablesController.tablesAccount);
 
-router.get('/tables-product', tablesController.tablesProduct);
+router.get('/tables-product', ensureAuthenticated, tablesController.tablesProduct);
 
-router.get('/tables-customer', tablesController.tablesCustomer);
+router.get('/tables-customer', ensureAuthenticated, tablesController.tablesCustomer);
 
-router.get('/tables-category', tablesController.tableCategory);
+router.get('/tables-category', ensureAuthenticated, tablesController.tableCategory);
 
-router.get('/tables-brand', tablesController.tableBrand);
+router.get('/tables-brand', ensureAuthenticated, tablesController.tableBrand);
 
-router.get('/add', tablesController.add);
-router.post('/add', tablesController.addPost);
+router.post('/tables-account/:accountID', ensureAuthenticated, tablesController.removeAccount);
+
+router.post('/tables-product/:productID', ensureAuthenticated, tablesController.removeProduct);
+
+router.get('/tables-product/edit/:productID', ensureAuthenticated, tablesController.editProduct);
+
+router.post('/tables-product/edit/:productID', ensureAuthenticated, tablesController.editConfirmation);
+
+router.get('/tables-product/add', ensureAuthenticated, tablesController.addProduct);
 
 module.exports = router;

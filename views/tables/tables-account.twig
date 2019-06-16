@@ -45,6 +45,7 @@
                                             <th>Họ tên</th>
                                             <th>Địa chỉ Email</th>
                                             <th>Ngày tạo</th>
+                                            <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,8 +55,12 @@
                                             <td>{{account.email}}</td>
                                             <td>{{account.date}}</td>
                                             <td>
-                                                <button type='button' class='btn btn-outline-danger' onclick='deleteButtonClick()'>Xóa</button>
-                                                <button type='button' class='btn btn-outline-info'>Sửa</button>
+                                                <form id='deleteAccount' action='/tables/tables-account/{{account.id}}' method='POST' style='float: left'>
+                                                    <input type='button' class='btn btn-outline-danger btn-sm' onclick='deleteButtonClick()' value='Xóa'>
+                                                </form>
+                                                <form id='editAccount' style='float: left; margin-left: 5px'>
+                                                    <input type='submit' class='btn btn-outline-info btn-sm' value='Sửa'>
+                                                </form>
                                             </td>
                                         </tr>
                                         {% endfor %}
@@ -106,11 +111,7 @@
         var conf = confirm('Bạn có chắc chắn muốn xóa?');
         if(conf == true)
         {
-            
-        }
-        else
-        {
-
+            document.getElementById("deleteAccount").submit();
         }
     }
   </script>

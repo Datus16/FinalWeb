@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var flash = require('connect-flash');
+var flash = require('req-flash');
 var session = require('express-session');
 
 var indexRouter = require('./routes/index');

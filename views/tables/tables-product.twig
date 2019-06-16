@@ -36,14 +36,17 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Data Table</strong>
+                                <strong class="card-title">Danh sách sản phẩm</strong>
+                                <form action='/tables/tables-product/add' method='GET' style='float: right;'>
+                                    <input type='submit' class='btn btn-outline-success btn-sm' value='Thêm'>
+                                </form>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Tên sản phẩm</th>
-                                            <th>Loại</th>
+                                            <th>Danh mục</th>
                                             <th>Giá</th>
                                             <th>Tình trạng </th>
                                             <th>Thao tác</th>
@@ -53,13 +56,19 @@
                                         {% for product in dbProducts %}
                                         <tr>
                                             <td>{{product.name}}</td>
-                                            <td>{{product.category}}</td>
+                                            {% for category in dbCategories if category._id == product.category %}
+                                            <td>{{category.name|e}}</td>
+                                            {% endfor %}
                                             <td>{{product.price}}</td>
                                             <td>{{product.availability}}</td>
                                             
                                             <td>
-                                                <button type='button' class='btn btn-outline-danger' onclick='deleteButtonClick()'>Xóa</button>
-                                                <button type='button' class='btn btn-outline-info'>Sửa</button>
+                                                 <form id='deleteProduct' action='/tables/tables-product/{{product._id}}' method='POST' style='float: left'>
+                                                    <input type='button' class='btn btn-outline-danger btn-sm' onclick='deleteButtonClick()' value='Xóa'>
+                                                </form>
+                                                <form action='/tables/tables-product/edit/{{product._id}}' method='GET' style='float: left; margin-left: 5px'>
+                                                    <input type='submit' class='btn btn-outline-info btn-sm' value='Sửa'>
+                                                </form>
                                             </td>
                                         </tr>
                                         {% endfor %}
@@ -110,11 +119,7 @@
         var conf = confirm('Bạn có chắc chắn muốn xóa?');
         if(conf == true)
         {
-            
-        }
-        else
-        {
-
+            document.getElementById("deleteProduct").submit();
         }
     }
   </script>

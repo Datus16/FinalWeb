@@ -28,14 +28,19 @@
                 {% endif %}
 
                 <div class="login-form">
-                    <form action="/tables/tables-product/add" method="POST">
+                    <form action="/tables/tables-product/edit/{{dbProduct._id}}" method="POST">
                         <div class="form-group">
                             <label>Tên sản phẩm</label>
-                            <input type="name" id="name" name="name" class="form-control" placeholder="Tên sản phẩm">
+                            <input type="name" id="name" name="name" class="form-control" placeholder="Tên sản phẩm"
+                            value='{{dbProduct.name}}'>
                         </div>
                         <div class="form-group">
                             <label>Danh mục</label>
-                            <select class="form-control" id="category" name='category'>
+                            <select class="form-control" id="category" name='category'
+                            {# {% for category in dbCategories if category._id == product.category %}
+                            {{category.name|e}}
+                            {% endfor %} #}
+                            >
                             
                             {% for category in dbCategories %}
                                 <option value='{{category._id}}'>{{category.name|e}}</option>
@@ -44,7 +49,11 @@
                         </div>
                         <div class="form-group">
                             <label>Thương hiệu</label>
-                            <select class="form-control" id="brand" name='brand'>
+                            <select class="form-control" id="brand" name='brand'
+                            {# {% for brand in dbBrands if brand._id == product.brand %}
+                            {{brand.name|e}}
+                            {% endfor %} #}
+                            >
                             
                             {% for brand in dbBrands %}
                                 <option value='{{brand._id}}'>{{brand.name|e}}</option>
@@ -53,19 +62,24 @@
                         </div>
                         <div class="form-group">
                             <label>Ảnh</label>
-                            <input type="imageURL" id="image" name="image" class="form-control" placeholder="URL ảnh">
+                            <input type="imageURL" id="image" name="image" class="form-control" placeholder="URL ảnh"
+                            value='{{dbProduct.image}}'>
                         </div>
                         <div class="form-group">
                             <label>Giá</label>
-                            <input type="price" id="price" name="price" class="form-control" placeholder="Giá tiền">
+                            <input type="price" id="price" name="price" class="form-control" placeholder="Giá tiền"
+                            value='{{dbProduct.price}}'>
                         </div>
                         <div class="form-group">
                             <label>Giá giảm</label>
-                            <input type="salePrice" id="salePrice" name="salePrice" class="form-control" placeholder="Giá giảm">
+                            <input type="salePrice" id="salePrice" name="salePrice" class="form-control" placeholder="Giá giảm"
+                            value='{{dbProduct.salePrice}}'>
                         </div>
                         <div class="form-group">
                             <label>Tình trạng</label>
-                            <select class="form-control" id="availability" name='availability'>
+                            <select class="form-control" id="availability" name='availability'
+                            {# {{dbProduct.availability|e}} #}
+                            >
                                 <option value='Còn hàng'>Còn hàng</option>
                                 <option value='Hết hàng'>Hết hàng</option>
                                 <option value='Còn ít'>Còn ít</option>

@@ -3,7 +3,8 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
 exports.loginPage = (req, res) => {
-    res.render('pages/page-login', { title: 'Đăng nhập' });
+    var success_msg = req.flash('success_msg');
+    res.render('pages/page-login', { title: 'Đăng nhập', success_msg});
 };
 
 exports.register = (req, res) => {
@@ -24,19 +25,19 @@ exports.registration = (req, res) => {
     let errors = [];
   
     if (!name || !email || !password || !password2) {
-      errors.push({ msg: 'Please enter all fields' });
+      errors.push({ msg: 'Xin nhập thông tin' });
     }
   
     if (password != password2) {
-      errors.push({ msg: 'Passwords do not match' });
+      errors.push({ msg: 'Mật khẩu không trùng khớp' });
     }
   
     if (password.length < 6) {
-      errors.push({ msg: 'Password must be at least 6 characters' });
+      errors.push({ msg: 'Mật khẩu phải chứa ít nhất 6 kí tự' });
     }
   
     if (errors.length > 0) {
-      res.render('page-register', {
+      res.render('pages/page-register', {
         errors,
         name,
         email,
@@ -46,8 +47,8 @@ exports.registration = (req, res) => {
     } else {
       User.findOne({ email: email }).then(user => {
         if (user) {
-          errors.push({ msg: 'Email already exists' });
-          res.render('page-register', {
+          errors.push({ msg: 'Địa chỉ Email đã được sử dụng' });
+          res.render('pages/page-register', {
             errors,
             name,
             email,
@@ -70,7 +71,7 @@ exports.registration = (req, res) => {
                 .then(user => {
                   req.flash(
                     'success_msg',
-                    'You are now registered and can log in'
+                    'Tạo tài khoản thành công. Bạn có thể đăng nhập.'
                   );
                   res.redirect('/pages/page-login');
                 })

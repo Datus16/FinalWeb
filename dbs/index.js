@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 
-var URL = 'mongodb://localhost:27017/clothingStore'
+var URL = 'mongodb+srv://trongledo:'+ encodeURIComponent('trong1234') + '@cluster0-iuwvp.mongodb.net/clothingStore?retryWrites=true';
 
 var dbs = {production: {}};
 
