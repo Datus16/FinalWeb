@@ -39,5 +39,5 @@ exports.confirmation = (req, res) => {
 exports.singleProduct = async (req, res) => {
     const dbProduct = await product.detail(req.params.productID);
     const dbCategory = await category.detail(dbProduct.category);
-    res.render('shop/single-product', { title: 'Thông tin chi tiết', dbProduct, dbCategory})
+    res.render('shop/single-product', { title: 'Thông tin chi tiết', dbProduct, dbCategory});
 };
