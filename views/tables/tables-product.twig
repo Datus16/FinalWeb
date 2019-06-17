@@ -47,6 +47,7 @@
                                         <tr>
                                             <th>Tên sản phẩm</th>
                                             <th>Danh mục</th>
+                                            <th>Thương hiệu</th>
                                             <th>Giá</th>
                                             <th>Tình trạng </th>
                                             <th>Thao tác</th>
@@ -58,6 +59,9 @@
                                             <td>{{product.name}}</td>
                                             {% for category in dbCategories if category._id == product.category %}
                                             <td>{{category.name|e}}</td>
+                                            {% endfor %}
+                                            {% for brand in dbBrands if brand._id == product.brand %}
+                                            <td>{{brand.name|e}}</td>
                                             {% endfor %}
                                             <td>{{product.price}}</td>
                                             <td>{{product.availability}}</td>

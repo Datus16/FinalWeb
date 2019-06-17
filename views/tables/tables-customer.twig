@@ -20,7 +20,7 @@
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Trang chủ</a></li>
                                     <li><a href="#">Bảng</a></li>
-                                    <li class="active">Sản phẩm</li>
+                                    <li class="active">Khách hàng</li>
                                 </ol>
                             </div>
                         </div>
@@ -36,7 +36,10 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Data Table</strong>
+                                <strong class="card-title">Bảng danh sách khách hàng</strong>
+                                <form action='/tables/tables-customer/add' method='GET' style='float: right;'>
+                                    <input type='submit' class='btn btn-outline-success btn-sm' value='Thêm'>
+                                </form>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -45,6 +48,7 @@
                                             <th>Tên khách hàng</th>
                                             <th>Số điện thoại</th>
                                             <th>Email</th>
+                                            <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,8 +58,12 @@
                                             <td>{{customer.phone}}</td>
                                             <td>{{customer.email}}</td>
                                             <td>
-                                                <button type='button' class='btn btn-outline-danger' onclick='deleteButtonClick()'>Xóa</button>
-                                                <button type='button' class='btn btn-outline-info'>Sửa</button>
+                                                <form id='deleteProduct' action='/tables/tables-customer/{{customer._id}}' method='POST' style='float: left'>
+                                                    <input type='button' class='btn btn-outline-danger btn-sm' onclick='deleteButtonClick()' value='Xóa'>
+                                                </form>
+                                                <form action='/tables/tables-customer/edit/{{customer._id}}' method='GET' style='float: left; margin-left: 5px'>
+                                                    <input type='submit' class='btn btn-outline-info btn-sm' value='Sửa'>
+                                                </form>
                                             </td>
                                         </tr>
                                         {% endfor %}
@@ -106,11 +114,7 @@
         var conf = confirm('Bạn có chắc chắn muốn xóa?');
         if(conf == true)
         {
-            
-        }
-        else
-        {
-
+            document.getElementById("deleteAccount").submit();
         }
     }
   </script>

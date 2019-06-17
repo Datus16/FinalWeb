@@ -28,7 +28,7 @@
                 {% endif %}
 
                 <div class="login-form">
-                    <form action="/tables/addProduct" method="POST">
+                    <form action="/tables/addProduct" enctype="multipart/form-data" method="POST">
                         <div class="form-group">
                             <label>Tên sản phẩm</label>
                             <input type="name" id="name" name="name" class="form-control" placeholder="Tên sản phẩm">

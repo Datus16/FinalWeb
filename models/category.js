@@ -12,19 +12,16 @@ const list = async () => {
     return results;
 }
 
-const remove = async (id) => {
-  var myquery = { _id: ObjectId(id) };
-  var newValue = { $set: { isDeleted: true } };
-  const results = await dbs.production.collection('categories').updateOne(myquery, newValue);
-  return results;
+const editOne = async (id, name) => {
+  dbs.production.collection('categories').findAndModify({_id: ObjectId(id)}, ['_id', 'asc'],
+   {$set: {name: name}});
+  const results = await dbs.production.collection('categories').find({_id: ObjectId(id)})
+    .toArray();
+  return results[0];
 }
-
-module.exports.add = async (category) => {
-  return await dbs.production.collection('categories').insertOne(category);
-};
 
 exports.detail = detail;
 
 exports.list = list;
 
-exports.remove = remove;
+exports.editOne = editOne;
