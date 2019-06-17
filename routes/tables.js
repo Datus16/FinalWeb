@@ -28,4 +28,6 @@ router.post('/tables-product/edit/:productID', ensureAuthenticated, tablesContro
 
 router.get('/tables-product/add', ensureAuthenticated, tablesController.addProduct);
 
+router.post('/addProduct', ensureAuthenticated, tablesController.postProduct);
+
 module.exports = router;

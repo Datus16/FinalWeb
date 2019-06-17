@@ -80,3 +80,10 @@ exports.addProduct = async (req, res) => {
     const dbBrands = await brand.list();
     res.render('tables/add', { title: 'Thêm sản phẩm', dbCategories, dbBrands});
 };
+
+exports.postProduct = async (req, res) => {
+    const { name, category, brand, image, price, salePrice, availability } = req.body;
+    await dbs.production.collection('products').insertOne({name: name, category: category,
+        brand: brand, image: image, price: price, salePrice: salePrice, availability: availability, hitCount: 1});
+    res.redirect('/tables/tables-product')
+};

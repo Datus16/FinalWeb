@@ -26,6 +26,13 @@ const editOne = async (id, name, category, brand, image, price, salePrice, avail
   return results[0];
 }
 
+const addOne = async (name, category, brand, image, price, salePrice, availability) => {
+  await dbs.production.collection('products').insertOne({name: name, category: category,
+     brand: brand, image: image, price: price, salePrice: salePrice, availability: availability});
+  const results = await dbs.production.collection('products').find({}).toArray();
+  return results;
+}
+
 exports.detail = detail;
 
 exports.list = list;
@@ -33,3 +40,5 @@ exports.list = list;
 exports.removeOne = removeOne;
 
 exports.editOne = editOne;
+
+exports.addOne = addOne;
