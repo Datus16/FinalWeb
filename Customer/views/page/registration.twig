@@ -22,8 +22,22 @@
   <div class="col-md-6 m-auto">
     <div class="card card-body">
       <h1 class="text-center mb-3">
-        <i class="fas fa-user-plus"></i> Register
+        <i class="fas fa-user-plus"></i> Đăng kí
       </h1>
+      {% if errors.length > 0 %}
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Lỗi</strong>
+                    </div>
+                    <div class="card-body">
+                        {% for error in errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{error.msg|e}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
       <form action="/page/registration" method="POST">
         <div class="form-group">
           <label for="name">Name</label>

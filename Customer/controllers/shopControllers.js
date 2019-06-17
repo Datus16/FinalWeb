@@ -2,6 +2,7 @@
 const product = require('../models/product');
 const category = require('../models/category');
 const brand = require('../models/brand');
+const comment = require('../models/comment');
 
 exports.cart = (req, res) => {
     res.render('shop/cart', { title: 'Giỏ hàng'})
@@ -39,5 +40,6 @@ exports.confirmation = (req, res) => {
 exports.singleProduct = async (req, res) => {
     const dbProduct = await product.detail(req.params.productID);
     const dbCategory = await category.detail(dbProduct.category);
-    res.render('shop/single-product', { title: 'Thông tin chi tiết', dbProduct, dbCategory});
+    const dbComments = await comment.showAll();
+    res.render('shop/single-product', { title: 'Thông tin chi tiết', dbProduct, dbCategory, dbComments});
 };
