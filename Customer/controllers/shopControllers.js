@@ -3,6 +3,8 @@ const product = require('../models/product');
 const category = require('../models/category');
 const brand = require('../models/brand');
 const comment = require('../models/comment');
+const ObjectId = require('mongodb').ObjectId;
+const { dbs } = require('../dbs');
 
 exports.cart = (req, res) => {
     res.render('shop/cart', { title: 'Giỏ hàng'})
@@ -42,4 +44,11 @@ exports.singleProduct = async (req, res) => {
     const dbCategory = await category.detail(dbProduct.category);
     const dbComments = await comment.showAll();
     res.render('shop/single-product', { title: 'Thông tin chi tiết', dbProduct, dbCategory, dbComments});
+};
+
+exports.postComment = async (req, res) => {
+    const { name, email, message } = req.body;
+    await dbs.production.collection('comments').insertOne({product: req.params.productID, name: name, email: email,
+        message: message});
+    res.redirect('/shop/single-product/' + req.params.productID);
 };

@@ -12,6 +12,8 @@ router.get('/brand/:brandID', shopControllers.brand);
 /* GET product detail. */
 router.get('/single-product/:productID', shopControllers.singleProduct);
 
+router.post('/:productID/comment', shopControllers.postComment);
+
 router.get('/checkout', shopControllers.checkout);
 
 router.get('/cart', shopControllers.cart);
